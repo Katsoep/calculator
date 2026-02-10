@@ -3,10 +3,9 @@ let numSecond;
 let operator;
 
 function operate(a, operator, b){
-    console.log(operator);
+//console.log(operator);
  switch(operator){
     case "+":
-        console.log(a,b);
         return addNum(a, b);
         break;
 
