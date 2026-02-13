@@ -1,9 +1,46 @@
-let numFirst;
-let numSecond;
-let operator;
+let numFirst ="";
+let numSecond ="";
+let operator="";
+
+const digitBtns = document.querySelectorAll(".digit");
+const displayScrn = document.querySelector(".display");
+const clear = document.querySelector("#clear");
+const clearAll = document.querySelector("#clearAll");
+
+
+digitBtns.forEach(digit => {
+    digit.addEventListener("click", () =>{
+        numFirst += digit.textContent;
+        updateDisplay();
+    })
+})
+
+clearAll.addEventListener("click", () =>{
+    numFirst = "";
+    operator = "";
+    numSecond = "";
+    updateDisplay();
+})
+clear.addEventListener("click", () =>{
+    //delete last index string in current step
+})
+
+function updateDisplay(){
+    displayScrn.textContent = numFirst + operator + numSecond;
+}
+
+
+//function that updates my var nums above
+//when button press add pressed number to string
+//if operator pass string to numfirst + set operator to pressed button
+//if current operator == pressed nothing happens if current operator =! pressed => update current to pressed
+//if last button operator && pressed button is digit, this digit is numsecond
+//if = button is pressed, operate(numfirst, operator, numsecond)
+//result = numfirst
+
+console.log("4" + "4");
 
 function operate(a, operator, b){
-//console.log(operator);
  switch(operator){
     case "+":
         return addNum(a, b);
@@ -21,7 +58,6 @@ function operate(a, operator, b){
         return divideNum(a, b);
         break;
  }
-
 }
 
 //Basic math functions
