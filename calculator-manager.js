@@ -2,6 +2,13 @@ let numFirst = "";
 let numSecond = "";
 let operator= "";
 
+/*Current errors to fix
+    + When a result is displayed, pressing a new digit should clear the result
+    + Display a snarky error message if the user tries to divide by 0 + it should not crash
+    + You should round answers with long decimals 
+*/
+
+/* Btn & display----------------------------------------------------*/
 const digitBtns = document.querySelectorAll(".digit");
 const operatorBtns = document.querySelectorAll(".operator");
 const displayScrn = document.querySelector(".display");
@@ -56,15 +63,7 @@ function clearData (){
     operator = "";
     numSecond = "";
 }
-
-//function that updates my var nums above
-//when button press add pressed number to string
-//if operator pass string to numfirst + set operator to pressed button
-//if current operator == pressed nothing happens if current operator =! pressed => update current to pressed
-//if last button operator && pressed button is digit, this digit is numsecond
-//if = button is pressed, operate(numfirst, operator, numsecond)
-//result = numfirst
-
+/*functionality----------------------------------------------------*/
 function operate(a, operator, b){
     let result = "";
     switch(operator){
@@ -91,11 +90,9 @@ function operate(a, operator, b){
     return result
 }
 
-//Basic math functions
 function addNum(a, b){
     return a + b;
 }
-//const addNum1 = (a, b) => a + b;
 
 function substractNum(a, b){
     return a - b;
