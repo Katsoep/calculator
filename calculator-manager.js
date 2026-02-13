@@ -7,6 +7,7 @@ const operatorBtns = document.querySelectorAll(".operator");
 const displayScrn = document.querySelector(".display");
 const clear = document.querySelector("#clear");
 const clearAll = document.querySelector("#clearAll");
+const equals = document.querySelector("#equals");
 
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
@@ -19,17 +20,27 @@ digitBtns.forEach(digit => {
 
 operatorBtns.forEach(opp => {
     opp.addEventListener("click", () =>{
-        numSecond == ""
-        ? operator = opp.textContent 
-        : operator //Give result + result = num1 + operator = pressed btn;
-        updateDisplay();
+    if (numSecond == ""){
+        operator = opp.textContent;
+
+    } else {
+        operate(numFirst, operator, numSecond);
+        operator = opp.textContent;
+    }
+    updateDisplay();
     })
 })
 
-clearAll.addEventListener("click", () =>{
-    numFirst = "";
-    operator = "";
-    numSecond = "";
+equals.addEventListener("click", () => {
+    numSecond == ""
+    ? "" //flicker button red?
+    : operate(numFirst, operator, numSecond);
+
+    updateDisplay();
+})
+
+clearAll.addEventListener("click", () => {
+    clearData();
     updateDisplay();
 })
 
@@ -37,23 +48,13 @@ clear.addEventListener("click", () =>{
     //delete last index string in current step
 })
 
-function brain(){
-
-    if(numFirst){
-        //current step = 2
-        if(operator){
-            //current step = 3
-            if (numSecond){
-                //operate can happen
-            }
-        }
-    } else {
-        //current step = 1
-    }
-}
-
 function updateDisplay(){
     displayScrn.textContent = numFirst + operator + numSecond;
+}
+function clearData (){
+    numFirst = "";
+    operator = "";
+    numSecond = "";
 }
 
 //function that updates my var nums above
@@ -65,23 +66,29 @@ function updateDisplay(){
 //result = numfirst
 
 function operate(a, operator, b){
- switch(operator){
-    case "+":
-        return addNum(a, b);
-        break;
+    let result = "";
+    switch(operator){
+        case "+":
+            
+            result = addNum(+a, +b);
+            break;
 
-    case "-":
-        return substractNum(a, b);
-        break;
+        case "-":
+            result = substractNum(+a, +b);
+            break;
 
-    case "*":
-        return multiplyNum(a, b);
-        break;
+        case "*":
+            result = multiplyNum(+a, +b);
+            break;
 
-    case "/":
-        return divideNum(a, b);
-        break;
- }
+        case "/":
+            result = divideNum(+a, +b);
+            break;
+        }
+    clearData();
+    numFirst = result;
+    updateDisplay();
+    return result
 }
 
 //Basic math functions
