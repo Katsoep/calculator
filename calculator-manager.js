@@ -1,16 +1,27 @@
-let numFirst ="";
-let numSecond ="";
-let operator="";
+let numFirst = "";
+let numSecond = "";
+let operator= "";
 
 const digitBtns = document.querySelectorAll(".digit");
+const operatorBtns = document.querySelectorAll(".operator");
 const displayScrn = document.querySelector(".display");
 const clear = document.querySelector("#clear");
 const clearAll = document.querySelector("#clearAll");
 
-
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
-        numFirst += digit.textContent;
+        operator == "" 
+        ? numFirst += digit.textContent 
+        : numSecond += digit.textContent;
+        updateDisplay();
+    })
+})
+
+operatorBtns.forEach(opp => {
+    opp.addEventListener("click", () =>{
+        numSecond == ""
+        ? operator = opp.textContent 
+        : operator //Give result + result = num1 + operator = pressed btn;
         updateDisplay();
     })
 })
@@ -21,14 +32,29 @@ clearAll.addEventListener("click", () =>{
     numSecond = "";
     updateDisplay();
 })
+
 clear.addEventListener("click", () =>{
     //delete last index string in current step
 })
 
+function brain(){
+
+    if(numFirst){
+        //current step = 2
+        if(operator){
+            //current step = 3
+            if (numSecond){
+                //operate can happen
+            }
+        }
+    } else {
+        //current step = 1
+    }
+}
+
 function updateDisplay(){
     displayScrn.textContent = numFirst + operator + numSecond;
 }
-
 
 //function that updates my var nums above
 //when button press add pressed number to string
@@ -37,8 +63,6 @@ function updateDisplay(){
 //if last button operator && pressed button is digit, this digit is numsecond
 //if = button is pressed, operate(numfirst, operator, numsecond)
 //result = numfirst
-
-console.log("4" + "4");
 
 function operate(a, operator, b){
  switch(operator){
