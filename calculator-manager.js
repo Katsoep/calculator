@@ -1,6 +1,7 @@
 let numFirst = "";
 let numSecond = "";
-let operator= "";
+let operator = "";
+let solution = 0;
 
 /*Current errors to fix
     + When a result is displayed, pressing a new digit should clear the result
@@ -18,6 +19,10 @@ const equals = document.querySelector("#equals");
 
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
+        if(solution) {
+            clearData();
+            solution = 0;
+        }
         operator == "" 
         ? numFirst += digit.textContent 
         : numSecond += digit.textContent;
@@ -32,6 +37,7 @@ operatorBtns.forEach(opp => {
 
     } else {
         operate(numFirst, operator, numSecond);
+        solution = 0;
         operator = opp.textContent;
     }
     updateDisplay();
@@ -42,7 +48,6 @@ equals.addEventListener("click", () => {
     numSecond == ""
     ? "" //flicker button red?
     : operate(numFirst, operator, numSecond);
-
     updateDisplay();
 })
 
@@ -87,6 +92,7 @@ function operate(a, operator, b){
     clearData();
     numFirst = result;
     updateDisplay();
+    solution = 1;
     return result
 }
 
