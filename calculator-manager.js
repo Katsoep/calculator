@@ -4,8 +4,7 @@ let operator = "";
 let solution = 0;
 
 /*Current errors to fix
-    + When a result is displayed, pressing a new digit should clear the result
-    + Display a snarky error message if the user tries to divide by 0 + it should not crash
+    + operator cant show numFirst is empty or error message is shown
     + You should round answers with long decimals 
 */
 
@@ -36,6 +35,7 @@ operatorBtns.forEach(opp => {
         operator = opp.textContent;
 
     } else {
+    // if (numFirst =! "") {
         operate(numFirst, operator, numSecond);
         solution = 0;
         operator = opp.textContent;
@@ -73,7 +73,6 @@ function operate(a, operator, b){
     let result = "";
     switch(operator){
         case "+":
-            
             result = addNum(+a, +b);
             break;
 
@@ -86,8 +85,9 @@ function operate(a, operator, b){
             break;
 
         case "/":
-            result = divideNum(+a, +b);
-            break;
+                result = divideNum(+a, +b);
+                break;
+
         }
     clearData();
     numFirst = result;
@@ -109,5 +109,9 @@ function multiplyNum(a, b){
 }
 
 function divideNum(a, b){
+    if(b === 0){
+        return "ERROR";
+    } else {
     return a / b;
+    }
 }
