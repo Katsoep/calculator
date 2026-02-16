@@ -61,6 +61,7 @@ equals.addEventListener("click", () => {
 
 clearAll.addEventListener("click", () => {
     clearData();
+    decimalChar.disabled = false;
     updateDisplay();
 })
 
