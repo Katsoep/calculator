@@ -4,7 +4,8 @@ let operator = "";
 let solution = 0;
 
 /*Current errors to fix
-    + ...
+    + limit user to one decimal
+    + Add backspace, "C" only deletes the last input
 */
 
 /* Btn & display----------------------------------------------------*/
@@ -14,6 +15,7 @@ const displayScrn = document.querySelector(".display");
 const clear = document.querySelector("#clear");
 const clearAll = document.querySelector("#clearAll");
 const equals = document.querySelector("#equals");
+const decimalChar = document.querySelector("#decimal");
 
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
@@ -30,6 +32,7 @@ digitBtns.forEach(digit => {
 
 operatorBtns.forEach(opp => {
     opp.addEventListener("click", () =>{
+        decimalChar.disabled = false;
         if (numSecond == ""){
             if( numFirst == "ERROR" || numFirst == ""){
                 operator = "";
@@ -63,6 +66,10 @@ clearAll.addEventListener("click", () => {
 
 clear.addEventListener("click", () =>{
     //delete last index string in current step
+})
+
+decimalChar.addEventListener("click", () => {
+    decimal.disabled = true;
 })
 
 function updateDisplay(){
@@ -102,6 +109,7 @@ function operate(a, operator, b){
     numFirst = result;
     updateDisplay();
     solution = 1;
+    decimalChar.disabled = false;
     return result
 }
 
