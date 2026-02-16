@@ -4,8 +4,7 @@ let operator = "";
 let solution = 0;
 
 /*Current errors to fix
-    + operator cant show numFirst is empty or error message is shown
-    + rounded decimal breaks error msg
+    + ...
 */
 
 /* Btn & display----------------------------------------------------*/
@@ -31,16 +30,22 @@ digitBtns.forEach(digit => {
 
 operatorBtns.forEach(opp => {
     opp.addEventListener("click", () =>{
-    if (numSecond == ""){
-        operator = opp.textContent;
-
-    } else {
-    // if (numFirst =! "") {
-        operate(numFirst, operator, numSecond);
-        solution = 0;
-        operator = opp.textContent;
-    }
-    updateDisplay();
+        if (numSecond == ""){
+            if( numFirst == "ERROR" || numFirst == ""){
+                operator = "";
+            } else {
+                operator = opp.textContent;
+            }
+        } else {
+            operate(numFirst, operator, numSecond);
+            //solution = 0;
+            if (numFirst == "ERROR"){
+                operator = "";
+            } else {
+                operator = opp.textContent;
+            }
+        }
+        updateDisplay();
     })
 })
 
@@ -85,7 +90,11 @@ function operate(a, operator, b){
             break;
 
         case "/":
-            result = roundToOneDecimal(divideNum(+a, +b));
+            if (b === "0"){
+                result = "ERROR";
+            } else {
+                result = roundToOneDecimal(divideNum(+a, +b));
+            }
             break;
 
         }
