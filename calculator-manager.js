@@ -5,7 +5,7 @@ let solution = 0;
 
 /*Current errors to fix
     + operator cant show numFirst is empty or error message is shown
-    + You should round answers with long decimals 
+    + rounded decimal breaks error msg
 */
 
 /* Btn & display----------------------------------------------------*/
@@ -18,7 +18,7 @@ const equals = document.querySelector("#equals");
 
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
-        if(solution) {
+        if(solution && operator == "") {
             clearData();
             solution = 0;
         }
@@ -73,20 +73,20 @@ function operate(a, operator, b){
     let result = "";
     switch(operator){
         case "+":
-            result = addNum(+a, +b);
+            result = roundToOneDecimal(addNum(+a, +b));
             break;
 
         case "-":
-            result = substractNum(+a, +b);
+            result = roundToOneDecimal(substractNum(+a, +b));
             break;
 
         case "*":
-            result = multiplyNum(+a, +b);
+            result = roundToOneDecimal(multiplyNum(+a, +b));
             break;
 
         case "/":
-                result = divideNum(+a, +b);
-                break;
+            result = roundToOneDecimal(divideNum(+a, +b));
+            break;
 
         }
     clearData();
@@ -115,3 +115,8 @@ function divideNum(a, b){
     return a / b;
     }
 }
+
+function roundToOneDecimal (num){
+    const sign = num < 0 ? -1 : 1;
+    return sign * Math.round((Math.abs(num) + Number.EPSILON) * 100) / 100;
+}   
