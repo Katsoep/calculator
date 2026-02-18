@@ -6,13 +6,12 @@ let solution = 0;
 /*Current errors to fix
     + limit user to one decimal
     + zero shouldnt be added if no other number has been entered
-    + reset "." if it gets deleted
 */
 
 /* Btn & display----------------------------------------------------*/
 const digitBtns = document.querySelectorAll(".digit");
 const operatorBtns = document.querySelectorAll(".operator");
-const displayScrn = document.querySelector(".display");
+const displayScrn = document.querySelector("#display");
 const clear = document.querySelector("#clear");
 const clearAll = document.querySelector("#clearAll");
 const equals = document.querySelector("#equals");
@@ -28,6 +27,17 @@ digitBtns.forEach(digit => {
         operator == "" 
         ? numFirst += digit.textContent 
         : numSecond += digit.textContent;
+
+        if(isActiveDecimal(numFirst)== true){
+            numFirst += digit.textContent;
+
+        }
+
+        // do {
+        //     operator == "" 
+        //     ? numFirst += digit.textContent 
+        //     : numSecond += digit.textContent;
+        // } while(isActiveDecimal(numFirst) == false)
         updateDisplay();
     })
 })
@@ -38,7 +48,6 @@ zeroBtns.forEach(zero => {
             clearData();
             solution = 0;
         }
-
         if(numFirst == ""){
             numFirst = ""
         } else {
@@ -99,7 +108,7 @@ clear.addEventListener("click", () =>{
 })
 
 decimalChar.addEventListener("click", () => {
-         operator == "" 
+        operator == "" 
         ? isActiveDecimal(numFirst)
         : isActiveDecimal(numSecond);
 })
@@ -113,6 +122,7 @@ function clearData (){
     numSecond = "";
     isActiveDecimal(numFirst);
     isActiveDecimal(numSecond);
+    console.log(isActiveDecimal(numFirst));
 }
 /*functionality----------------------------------------------------*/
 function operate(a, operator, b){
@@ -179,7 +189,15 @@ function isFirstNumber (){
 function isActiveDecimal(string){
    if (string.includes(".")){
     decimalChar.disabled = true;
+    return true;
    } else {
     decimalChar.disabled = false;
+    return false;
    }
 }
+
+
+displayScrn.addEventListener("keypress", (event) => {
+    console.log(event.key);
+    console.log(displayScrn.value);
+})
