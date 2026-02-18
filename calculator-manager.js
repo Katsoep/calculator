@@ -5,7 +5,8 @@ let solution = 0;
 
 /*Current errors to fix
     + limit user to one decimal
-    + Add backspace, "C" only deletes the last input
+    + zero shouldnt be added if no other number has been entered
+    + reset "." if it gets deleted
 */
 
 /* Btn & display----------------------------------------------------*/
@@ -16,6 +17,7 @@ const clear = document.querySelector("#clear");
 const clearAll = document.querySelector("#clearAll");
 const equals = document.querySelector("#equals");
 const decimalChar = document.querySelector("#decimal");
+const zeroBtns = document.querySelectorAll(".zero");
 
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
@@ -26,6 +28,24 @@ digitBtns.forEach(digit => {
         operator == "" 
         ? numFirst += digit.textContent 
         : numSecond += digit.textContent;
+        updateDisplay();
+    })
+})
+
+zeroBtns.forEach(zero => {
+    zero.addEventListener("click", () =>{
+        if(solution && operator == "") {
+            clearData();
+            solution = 0;
+        }
+
+        if(numFirst == ""){
+            numFirst = ""
+        } else {
+        operator == "" 
+        ? numFirst += zero.textContent 
+        : numSecond += zero.textContent;
+        }
         updateDisplay();
     })
 })
@@ -61,16 +81,27 @@ equals.addEventListener("click", () => {
 
 clearAll.addEventListener("click", () => {
     clearData();
-    decimalChar.disabled = false;
     updateDisplay();
 })
 
 clear.addEventListener("click", () =>{
-    //delete last index string in current step
+    if(operator == ""){
+        numFirst = numFirst.substring(0,  numFirst.length -1);
+        isActiveDecimal(numFirst);
+    }
+    if(numSecond == ""){
+        operator = operator.substring(0,  operator.length -1);
+    } else {
+        numSecond = numSecond.substring(0,  numSecond.length -1);
+          isActiveDecimal(numSecond);
+    }
+    updateDisplay();
 })
 
 decimalChar.addEventListener("click", () => {
-    decimal.disabled = true;
+         operator == "" 
+        ? isActiveDecimal(numFirst)
+        : isActiveDecimal(numSecond);
 })
 
 function updateDisplay(){
@@ -80,6 +111,8 @@ function clearData (){
     numFirst = "";
     operator = "";
     numSecond = "";
+    isActiveDecimal(numFirst);
+    isActiveDecimal(numSecond);
 }
 /*functionality----------------------------------------------------*/
 function operate(a, operator, b){
@@ -107,10 +140,10 @@ function operate(a, operator, b){
 
         }
     clearData();
-    numFirst = result;
+    numFirst = "" + result;
     updateDisplay();
     solution = 1;
-    decimalChar.disabled = false;
+    //decimalChar.disabled = false;
     return result
 }
 
@@ -138,3 +171,15 @@ function roundToOneDecimal (num){
     const sign = num < 0 ? -1 : 1;
     return sign * Math.round((Math.abs(num) + Number.EPSILON) * 100) / 100;
 }   
+
+function isFirstNumber (){
+    return operator == "" ? 1 : -1
+}
+
+function isActiveDecimal(string){
+   if (string.includes(".")){
+    decimalChar.disabled = true;
+   } else {
+    decimalChar.disabled = false;
+   }
+}
