@@ -8,6 +8,7 @@ let solution = 0;
     + zero shouldnt be added if no other number has been entered
     + keyboard controls
     + max 17 characters
+    + if error msg C = clearAll
 */
 
 const digitBtns = document.querySelectorAll(".digit");
@@ -85,6 +86,9 @@ clearAll.addEventListener("click", () => {
 })
 
 clear.addEventListener("click", () =>{
+    if(numFirst == "ERROR"){
+        clearData();
+    }
     if(operator == ""){
         numFirst = numFirst.substring(0,  numFirst.length -1);
         isActiveDecimal(numFirst);
