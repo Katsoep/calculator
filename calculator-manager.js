@@ -4,10 +4,8 @@ let operator = "";
 let solution = 0;
 
 /*Current errors to fix
-    + limit user to two decimal
-    + zero shouldnt be added if no other number has been entered
+    + limit user to one decimal
     + keyboard controls
-    + max 17 characters
 */
 
 const digitBtns = document.querySelectorAll(".digit");
