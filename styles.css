@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background-color: antiquewhite;
+    gap: 5px;
+}
+.display{
+    background-color: whitesmoke;
+    height: 30px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.row{
+    display: flex;
+    gap: 5px;
+}
+button {
+    width: 30px;
+    height: 30px;
+}
+#clearAll{
+ width: 65px;
+}

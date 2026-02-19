@@ -6,10 +6,10 @@ let solution = 0;
 /*Current errors to fix
     + limit user to one decimal
     + zero shouldnt be added if no other number has been entered
-    + reset "." if it gets deleted
+    + keyboard controls
+    + max 17 characters
 */
 
-/* Btn & display----------------------------------------------------*/
 const digitBtns = document.querySelectorAll(".digit");
 const operatorBtns = document.querySelectorAll(".operator");
 const displayScrn = document.querySelector(".display");
@@ -19,6 +19,7 @@ const equals = document.querySelector("#equals");
 const decimalChar = document.querySelector("#decimal");
 const zeroBtns = document.querySelectorAll(".zero");
 
+/* Btn control---------------------------------------------------*/
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
         if(solution && operator == "") {
@@ -61,7 +62,6 @@ operatorBtns.forEach(opp => {
             }
         } else {
             operate(numFirst, operator, numSecond);
-            //solution = 0;
             if (numFirst == "ERROR"){
                 operator = "";
             } else {
@@ -104,6 +104,8 @@ decimalChar.addEventListener("click", () => {
         : isActiveDecimal(numSecond);
 })
 
+
+/*Data handling----------------------------------------------------*/
 function updateDisplay(){
     displayScrn.textContent = numFirst + operator + numSecond;
 }
@@ -114,6 +116,25 @@ function clearData (){
     isActiveDecimal(numFirst);
     isActiveDecimal(numSecond);
 }
+
+function roundToOneDecimal (num){
+    const sign = num < 0 ? -1 : 1;
+    return sign * Math.round((Math.abs(num) + Number.EPSILON) * 100) / 100;
+}   
+
+function isFirstNumber (){
+    return operator == "" ? 1 : -1
+}
+
+function isActiveDecimal(string){
+   if (string.includes(".")){
+    decimalChar.disabled = true;
+   } else {
+    decimalChar.disabled = false;
+   }
+}
+
+
 /*functionality----------------------------------------------------*/
 function operate(a, operator, b){
     let result = "";
@@ -143,7 +164,6 @@ function operate(a, operator, b){
     numFirst = "" + result;
     updateDisplay();
     solution = 1;
-    //decimalChar.disabled = false;
     return result
 }
 
@@ -165,21 +185,4 @@ function divideNum(a, b){
     } else {
     return a / b;
     }
-}
-
-function roundToOneDecimal (num){
-    const sign = num < 0 ? -1 : 1;
-    return sign * Math.round((Math.abs(num) + Number.EPSILON) * 100) / 100;
-}   
-
-function isFirstNumber (){
-    return operator == "" ? 1 : -1
-}
-
-function isActiveDecimal(string){
-   if (string.includes(".")){
-    decimalChar.disabled = true;
-   } else {
-    decimalChar.disabled = false;
-   }
 }
