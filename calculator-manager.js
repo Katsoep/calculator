@@ -4,11 +4,10 @@ let operator = "";
 let solution = 0;
 
 /*Current errors to fix
-    + limit user to one decimal
+    + limit user to two decimal
     + zero shouldnt be added if no other number has been entered
     + keyboard controls
     + max 17 characters
-    + if error msg C = clearAll
 */
 
 const digitBtns = document.querySelectorAll(".digit");
@@ -111,7 +110,8 @@ decimalChar.addEventListener("click", () => {
 
 /*Data handling----------------------------------------------------*/
 function updateDisplay(){
-    displayScrn.textContent = numFirst + operator + numSecond;
+    let fullEquation = numFirst + operator + numSecond;
+    displayScrn.textContent = maxString(fullEquation,17);
 }
 function clearData (){
     numFirst = "";
@@ -123,12 +123,8 @@ function clearData (){
 
 function roundToOneDecimal (num){
     const sign = num < 0 ? -1 : 1;
-    return sign * Math.round((Math.abs(num) + Number.EPSILON) * 100) / 100;
+    return sign * Math.round((Math.abs(num) + Number.EPSILON) * 10) / 10;
 }   
-
-function isFirstNumber (){
-    return operator == "" ? 1 : -1
-}
 
 function isActiveDecimal(string){
    if (string.includes(".")){
@@ -136,6 +132,13 @@ function isActiveDecimal(string){
    } else {
     decimalChar.disabled = false;
    }
+}
+
+function maxString(str, maxLength){
+    if(str.length > maxLength){
+        return str.substring(0, maxLength)
+    }
+    return str;
 }
 
 
@@ -168,7 +171,7 @@ function operate(a, operator, b){
     numFirst = "" + result;
     updateDisplay();
     solution = 1;
-    return result
+    return maxString(result, 17);
 }
 
 function addNum(a, b){
