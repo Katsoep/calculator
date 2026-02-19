@@ -5,7 +5,9 @@ let solution = 0;
 
 /*Current errors to fix
     + limit user to one decimal
-    + keyboard controls
+    + "." is considered a digit
+    + "." on keyboard controls can be added multiple times
+
 */
 
 const digitBtns = document.querySelectorAll(".digit");
@@ -103,6 +105,79 @@ decimalChar.addEventListener("click", () => {
          operator == "" 
         ? isActiveDecimal(numFirst)
         : isActiveDecimal(numSecond);
+})
+
+
+/*Keyboard support----------------------------------------------------*/
+document.addEventListener("keydown", (e) => {
+   console.log(e.key);
+    const digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+    const operators = ["+", "-", "*", "/"];
+    const backspaceKey = "Backspace";
+    const enterKey = "Enter";
+    const decimalKey = ".";
+
+    if(digits.includes(e.key)){
+         if(solution && operator == "") {
+            clearData();
+            solution = 0;
+        }
+        operator == "" 
+        ? numFirst += e.key 
+        : numSecond += e.key;
+        updateDisplay();
+    }
+
+    if(operators.includes(e.key)){
+        decimalChar.disabled = false;
+        if (numSecond == ""){
+            if( numFirst == "ERROR" || numFirst == ""){
+                operator = "";
+            } else {
+                operator = e.key;
+            }
+        } else {
+            operate(numFirst, operator, numSecond);
+            if (numFirst == "ERROR"){
+                operator = "";
+            } else {
+                operator = e.key;
+            }
+        }
+        updateDisplay();
+    }
+
+    if(backspaceKey.includes(e.key)){
+        if(numFirst == "ERROR"){
+            clearData();
+        }
+        if(operator == ""){
+            numFirst = numFirst.substring(0,  numFirst.length -1);
+            isActiveDecimal(numFirst);
+        }
+        if(numSecond == ""){
+            operator = operator.substring(0,  operator.length -1);
+        } else {
+            numSecond = numSecond.substring(0,  numSecond.length -1);
+            isActiveDecimal(numSecond);
+        }
+        updateDisplay();
+    }
+
+    if(enterKey.includes(e.key)){
+        e.preventDefault();
+        numSecond == ""
+        ? "" //flicker button red?
+        : operate(numFirst, operator, numSecond);
+        updateDisplay();
+    }
+
+    if(decimalKey.includes(e.key)){
+        console.log("imhere");
+        operator == "" 
+        ? isActiveDecimal(numFirst)
+        : isActiveDecimal(numSecond);
+    }
 })
 
 
