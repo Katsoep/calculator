@@ -59,15 +59,16 @@ clear.addEventListener("click", () =>{
 })
 
 decimalChar.addEventListener("click", () => {
-    if(numFirst.includes(".") == false){
-        sortInput(decimalChar.textContent);
-    } else {
-        sortInput("");
-    }
-    operator == "" 
-        ? isActiveDecimal(numFirst)
-        : isActiveDecimal(numSecond);
-    updateDisplay();
+    sortInput(decimalChar.textContent);
+    // if(numFirst.includes(".") == false){
+    //     sortInput(decimalChar.textContent);
+    // } else {
+    //     sortInput("");
+    // }
+    // operator == "" 
+    //     ? isActiveDecimal(numFirst)
+    //     : isActiveDecimal(numSecond);
+    // updateDisplay();
 })
 
 
@@ -111,14 +112,8 @@ document.addEventListener("keydown", (e) => {
     }
 
     if(decimalKey.includes(e.key)){
-        if(numFirst.includes(".") == false){
-            sortInput(e.key);
-        } 
-        operator == "" 
-        ? isActiveDecimal(numFirst)
-        : isActiveDecimal(numSecond);
+        sortInput(e.key);
     }
-    updateDisplay();
 })
 
 
@@ -156,7 +151,7 @@ function maxString(str, maxLength){
 }
 
 function sortInput(input){
-    if(["1", "2", "3", "4", "5", "6", "7", "8", "9", "."].includes(input)){
+    if(["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(input)){
        console.log(input);
         if(solution && operator == "") {
             clearData();
@@ -190,6 +185,20 @@ function sortInput(input){
             } else {
                 operator = input;
             }
+        }
+    }
+
+    else if (input == "."){
+        if(operator == ""){
+            if(numFirst.includes(".") == false){
+                numFirst += input;
+            } 
+            isActiveDecimal(numFirst);
+        } else {
+            if(numSecond.includes(".") == false){
+              numSecond += input;
+            } 
+            isActiveDecimal(numSecond);
         }
     }
     updateDisplay();
