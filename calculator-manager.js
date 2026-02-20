@@ -5,9 +5,6 @@ let solution = 0;
 
 /*Current errors to fix
     + limit user to one decimal
-    + "." is considered a digit
-    + "." on keyboard controls can be added multiple times
-
 */
 
 const digitBtns = document.querySelectorAll(".digit");
@@ -26,9 +23,7 @@ digitBtns.forEach(digit => {
             clearData();
             solution = 0;
         }
-        operator == "" 
-        ? numFirst += digit.textContent 
-        : numSecond += digit.textContent;
+        addToCorrectNumber(digit.textContent);
         updateDisplay();
     })
 })
@@ -102,16 +97,21 @@ clear.addEventListener("click", () =>{
 })
 
 decimalChar.addEventListener("click", () => {
-         operator == "" 
+    if(numFirst.includes(".") == false){
+        addToCorrectNumber(decimalChar.textContent);
+    } else {
+        addToCorrectNumber("");
+    }
+    operator == "" 
         ? isActiveDecimal(numFirst)
         : isActiveDecimal(numSecond);
+    updateDisplay();
 })
 
 
 /*Keyboard support----------------------------------------------------*/
 document.addEventListener("keydown", (e) => {
-   console.log(e.key);
-    const digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+    const digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const operators = ["+", "-", "*", "/"];
     const backspaceKey = "Backspace";
     const enterKey = "Enter";
@@ -122,10 +122,7 @@ document.addEventListener("keydown", (e) => {
             clearData();
             solution = 0;
         }
-        operator == "" 
-        ? numFirst += e.key 
-        : numSecond += e.key;
-        updateDisplay();
+        addToCorrectNumber(e.key);
     }
 
     if(operators.includes(e.key)){
@@ -144,7 +141,6 @@ document.addEventListener("keydown", (e) => {
                 operator = e.key;
             }
         }
-        updateDisplay();
     }
 
     if(backspaceKey.includes(e.key)){
@@ -161,7 +157,6 @@ document.addEventListener("keydown", (e) => {
             numSecond = numSecond.substring(0,  numSecond.length -1);
             isActiveDecimal(numSecond);
         }
-        updateDisplay();
     }
 
     if(enterKey.includes(e.key)){
@@ -169,15 +164,17 @@ document.addEventListener("keydown", (e) => {
         numSecond == ""
         ? "" //flicker button red?
         : operate(numFirst, operator, numSecond);
-        updateDisplay();
     }
 
     if(decimalKey.includes(e.key)){
-        console.log("imhere");
+        if(numFirst.includes(".") == false){
+            addToCorrectNumber(e.key);
+        } 
         operator == "" 
         ? isActiveDecimal(numFirst)
         : isActiveDecimal(numSecond);
     }
+    updateDisplay();
 })
 
 
@@ -212,6 +209,12 @@ function maxString(str, maxLength){
         return str.substring(0, maxLength)
     }
     return str;
+}
+
+function addToCorrectNumber(input){
+    operator == "" 
+        ? numFirst += input 
+        : numSecond += input;
 }
 
 
@@ -266,3 +269,15 @@ function divideNum(a, b){
     return a / b;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
