@@ -19,51 +19,13 @@ const zeroBtns = document.querySelectorAll(".zero");
 /* Btn control---------------------------------------------------*/
 digitBtns.forEach(digit => {
     digit.addEventListener("click", () =>{
-        if(solution && operator == "") {
-            clearData();
-            solution = 0;
-        }
-        addToCorrectNumber(digit.textContent);
-        updateDisplay();
-    })
-})
-
-zeroBtns.forEach(zero => {
-    zero.addEventListener("click", () =>{
-        if(solution && operator == "") {
-            clearData();
-            solution = 0;
-        }
-
-        if(numFirst == ""){
-            numFirst = ""
-        } else {
-        operator == "" 
-        ? numFirst += zero.textContent 
-        : numSecond += zero.textContent;
-        }
-        updateDisplay();
+        sortInput(digit.textContent);
     })
 })
 
 operatorBtns.forEach(opp => {
     opp.addEventListener("click", () =>{
-        decimalChar.disabled = false;
-        if (numSecond == ""){
-            if( numFirst == "ERROR" || numFirst == ""){
-                operator = "";
-            } else {
-                operator = opp.textContent;
-            }
-        } else {
-            operate(numFirst, operator, numSecond);
-            if (numFirst == "ERROR"){
-                operator = "";
-            } else {
-                operator = opp.textContent;
-            }
-        }
-        updateDisplay();
+        sortInput(opp.textContent);
     })
 })
 
@@ -98,9 +60,9 @@ clear.addEventListener("click", () =>{
 
 decimalChar.addEventListener("click", () => {
     if(numFirst.includes(".") == false){
-        addToCorrectNumber(decimalChar.textContent);
+        sortInput(decimalChar.textContent);
     } else {
-        addToCorrectNumber("");
+        sortInput("");
     }
     operator == "" 
         ? isActiveDecimal(numFirst)
@@ -118,29 +80,11 @@ document.addEventListener("keydown", (e) => {
     const decimalKey = ".";
 
     if(digits.includes(e.key)){
-         if(solution && operator == "") {
-            clearData();
-            solution = 0;
-        }
-        addToCorrectNumber(e.key);
+        sortInput(e.key);
     }
 
     if(operators.includes(e.key)){
-        decimalChar.disabled = false;
-        if (numSecond == ""){
-            if( numFirst == "ERROR" || numFirst == ""){
-                operator = "";
-            } else {
-                operator = e.key;
-            }
-        } else {
-            operate(numFirst, operator, numSecond);
-            if (numFirst == "ERROR"){
-                operator = "";
-            } else {
-                operator = e.key;
-            }
-        }
+        sortInput(e.key);
     }
 
     if(backspaceKey.includes(e.key)){
@@ -168,7 +112,7 @@ document.addEventListener("keydown", (e) => {
 
     if(decimalKey.includes(e.key)){
         if(numFirst.includes(".") == false){
-            addToCorrectNumber(e.key);
+            sortInput(e.key);
         } 
         operator == "" 
         ? isActiveDecimal(numFirst)
@@ -211,10 +155,44 @@ function maxString(str, maxLength){
     return str;
 }
 
-function addToCorrectNumber(input){
-    operator == "" 
-        ? numFirst += input 
-        : numSecond += input;
+function sortInput(input){
+    if(["1", "2", "3", "4", "5", "6", "7", "8", "9", "."].includes(input)){
+       console.log(input);
+        if(solution && operator == "") {
+            clearData();
+            solution = 0;
+        }
+        operator == "" 
+            ? numFirst += input 
+            : numSecond += input;
+    }
+
+    else if(numFirst !== "" && ["00", "0"].includes(input)){
+        console.log(input);
+        operator == "" 
+            ? numFirst += input 
+            : numSecond += input;
+    }
+
+    else if(["+", "-", "*", "/"].includes(input)){
+        console.log(input);
+        decimalChar.disabled = false;
+        if (numSecond == ""){
+            if( numFirst == "ERROR" || numFirst == ""){
+                operator = "";
+            } else {
+                operator = input;
+            }
+        } else {
+            operate(numFirst, operator, numSecond);
+            if( numFirst == "ERROR"){
+                operator = "";
+            } else {
+                operator = input;
+            }
+        }
+    }
+    updateDisplay();
 }
 
 
@@ -269,15 +247,4 @@ function divideNum(a, b){
     return a / b;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
