@@ -4,7 +4,7 @@ let operator = "";
 let solution = 0;
 
 /*Current errors to fix
-    + limit user to one decimal
+    + NumSec needs to allow 0 as firs number (note: the calculations work even if not displayed)
 */
 
 const digitBtns = document.querySelectorAll(".digit");
@@ -145,32 +145,51 @@ function isActiveDecimal(string){
 
 function maxString(str, maxLength){
     if(str.length > maxLength){
-        return str.substring(0, maxLength)
+        return str.substring(0, maxLength);
     }
     return str;
 }
 
+function maxDecimal (str, input){
+    let newStr = str.substring(0, str.length - 1);
+    if(newStr.includes(".")){
+        if(newStr.charAt(newStr.length - 1) == ".") {
+            return newStr.substring(0, newStr.length) + input;
+        } else {
+            return newStr.substring(0, newStr.length - 1) + input;
+        }
+    }
+    else {
+        return str;
+    }
+}
+
 function sortInput(input){
     if(["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(input)){
-       console.log(input);
+    //   console.log(input);
         if(solution && operator == "") {
             clearData();
             solution = 0;
         }
+       
         operator == "" 
-            ? numFirst += input 
+            ? numFirst +=  input
             : numSecond += input;
+
+        operator == "" 
+            ? numFirst = maxDecimal(numFirst, input)
+            : numSecond = maxDecimal(numSecond, input);
     }
 
     else if(numFirst !== "" && ["00", "0"].includes(input)){
-        console.log(input);
+     //   console.log(input);
         operator == "" 
             ? numFirst += input 
             : numSecond += input;
     }
 
     else if(["+", "-", "*", "/"].includes(input)){
-        console.log(input);
+     //   console.log(input);
         decimalChar.disabled = false;
         if (numSecond == ""){
             if( numFirst == "ERROR" || numFirst == ""){
@@ -191,7 +210,7 @@ function sortInput(input){
     else if (input == "."){
         if(operator == ""){
             if(numFirst.includes(".") == false){
-                numFirst += input;
+                numFirst += input; 
             } 
             isActiveDecimal(numFirst);
         } else {
