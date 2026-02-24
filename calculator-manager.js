@@ -60,21 +60,12 @@ clear.addEventListener("click", () =>{
 
 decimalChar.addEventListener("click", () => {
     sortInput(decimalChar.textContent);
-    // if(numFirst.includes(".") == false){
-    //     sortInput(decimalChar.textContent);
-    // } else {
-    //     sortInput("");
-    // }
-    // operator == "" 
-    //     ? isActiveDecimal(numFirst)
-    //     : isActiveDecimal(numSecond);
-    // updateDisplay();
 })
 
 
 /*Keyboard support----------------------------------------------------*/
 document.addEventListener("keydown", (e) => {
-    const digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    const digits = ["0" ,"1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const operators = ["+", "-", "*", "/"];
     const backspaceKey = "Backspace";
     const enterKey = "Enter";
@@ -102,6 +93,7 @@ document.addEventListener("keydown", (e) => {
             numSecond = numSecond.substring(0,  numSecond.length -1);
             isActiveDecimal(numSecond);
         }
+        updateDisplay();
     }
 
     if(enterKey.includes(e.key)){
