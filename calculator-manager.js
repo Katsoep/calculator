@@ -80,6 +80,7 @@ document.addEventListener("keydown", (e) => {
     }
 
     if(backspaceKey.includes(e.key)){
+     e.preventDefault();
         if(numFirst == "ERROR"){
             clearData();
         }
@@ -93,7 +94,7 @@ document.addEventListener("keydown", (e) => {
             numSecond = numSecond.substring(0,  numSecond.length -1);
             isActiveDecimal(numSecond);
         }
-        updateDisplay();
+     updateDisplay();
     }
 
     if(enterKey.includes(e.key)){
