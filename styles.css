@@ -9,13 +9,13 @@ body{
 }
 .container{
     display: flex;
-    border-radius: 15px;
+    border-radius: 1em;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1em;
+    padding: 3em;
     background-color: #cec7bf;
-    gap: 5px;
+    gap: 1em;
     box-shadow: rgba(66, 60, 57, 0.09) 0px 2px 1px,
                 rgba(66, 60, 57, 0.09) 0px 4px 2px, 
                 rgba(66, 60, 57, 0.09) 0px 8px 4px, 
@@ -25,28 +25,33 @@ body{
 }
 .display{
     background-color: #fffdfb;
-    height: 30px;
-    width: 140px;
-    border-radius: 15px;
+    height: 2em;
+    width: 9em;
+    border-radius: 7em;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: rgba(129, 126, 122, 0.25) 0px 5px 10px -5px,
                 rgba(139, 135, 131, 0.35) 0px 2px 6px 0px inset;
+    font-size: 50px;
+    font-weight: bold;
+    color: rgb(54, 54, 54);
+    margin-bottom: 20px;
     
 }
 .row{
     display: flex;
-    gap: 5px;
+    gap: 1em;
 }
 button {
-    width: 30px;
-    height: 30px;
+    width: 2.5em;
+    height: 2.5em;
     border-radius: 50%;
     border-style: none;
     font-family: "Homanje", sans-serif;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px -2px,
                 rgba(129, 106, 89, 0.35) 0px -2px 6px 0px inset;
+    font-size: 40px;
                 
     
 }
@@ -55,6 +60,7 @@ button:active{
 }
 .tool{
     background-color: #deb887;
+    font-weight: 700;
     color: #fffdfb;
        box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px -2px,
                    rgba(121, 57, 8, 0.35) 0px -2px 6px 0px inset;
@@ -62,6 +68,7 @@ button:active{
 
 .operator{
  background-color: gray;
+  font-weight: 700;
  color: #fffdfb;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px -2px,
                 rgba(19, 19, 19, 0.35) 0px -2px 6px 0px inset;
@@ -69,16 +76,18 @@ button:active{
 
 #equals{
  background-color: brown;
+  font-weight: 700;
  color: #fffdfb;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px -2px,
                 rgba(43, 0, 0, 0.35) 0px -2px 6px 0px inset;
 }
 
 #clearAll{
- width: 65px;
- border-radius: 15px;
+ width: 5.25em;
+ border-radius: 5em;
 }
 #decimal{
+    font-weight: 700;
     background-color:rgb(54, 54, 54);
     color:#fffdfb;
        box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px -2px,
