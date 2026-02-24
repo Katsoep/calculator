@@ -120,7 +120,7 @@ document.addEventListener("keydown", (e) => {
 /*Data handling----------------------------------------------------*/
 function updateDisplay(){
     let fullEquation = numFirst + operator + numSecond;
-    displayScrn.textContent = maxString(fullEquation,17);
+    displayScrn.textContent = maxString(fullEquation,14);
 }
 function clearData (){
     numFirst = "";
